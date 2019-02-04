@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-weight: bold;
 }
 
 .App-logo {
@@ -8,7 +9,9 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  /* background-color: #282c34; */
+  background-color: #66ccff;
+  font-family: sans-serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -16,6 +19,55 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.todo {
+  width: 450px;
+  /* background-color: red; */
+}
+
+.todo input {
+  font-weight: bold;
+  color: #333;
+  width: 363px;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #fff;
+}
+
+.todo button {
+  padding: 10px;
+  font-size: 16px;
+  margin: 10px;
+  margin-right: 0px;
+  background-color: #0066ff;
+  border: 2px solid #0066ff;
+  color: #fff; 
+}
+
+.todo button:hover{
+  background-color: #003399;
+  border: 2px solid #003399;
+  cursor: pointer
+}
+
+.todo ul {
+  padding: 0;
+}
+
+.todo ul li {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #333;
+  padding: 15px;
+  margin: 5px 0 15px 0;
+  list-style: none;
+  border-radius: 5px;
+  cursor: default
+}
+
+.todo ul li:hover{
+  background-color: pink;
+  cursor: pointer
 }
 
 .App-link {
