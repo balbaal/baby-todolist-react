@@ -7,8 +7,8 @@ import "react-toastify/dist/ReactToastify.min.css";
 import TodoForm from "./components/todoForm";
 import TodoItem from "./components/todoItem";
 
-import { Provider } from "react-redux";
-import store from "./store";
+import { connect } from "react-redux";
+import { addTodo } from "./actions/todoAction";
 
 class App extends Component {
   constructor(props) {
@@ -48,10 +48,7 @@ class App extends Component {
       this.notify(2, "field can't empty");
     } else {
       this.notify(1, "added new item !");
-      let items = [...this.state.items, item];
-      this.setState({
-        items: items
-      });
+      this.props.addTodo(this.props.todos, item)
     }
   };
 
@@ -60,12 +57,8 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <div className="todo">
-            <Provider store={store}>
-              <TodoForm onInputItem={this.onInputItem} />
-              <TodoItem
-                onDeleteItem={this.onDeleteItem}
-              />
-            </Provider>
+            <TodoForm onInputItem={this.onInputItem} />
+            <TodoItem onDeleteItem={this.onDeleteItem} />
           </div>
           <ToastContainer autoClose={2500} />
         </header>
@@ -74,4 +67,11 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  todos: state.todos.todos
+});
+
+export default connect(
+  mapStateToProps,
+  { addTodo }
+)(App);

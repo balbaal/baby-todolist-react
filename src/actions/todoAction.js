@@ -11,3 +11,12 @@ export const fetchTodos = () => dispatch => {
     ]
   });
 };
+
+export const addTodo = (oldData, newData) => dispatch => {
+  let data = [...oldData, newData];
+
+  dispatch({
+    type: ADD_TODO,
+    payload: data
+  });
+};
