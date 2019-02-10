@@ -8,7 +8,7 @@ import TodoForm from "./components/todoForm";
 import TodoItem from "./components/todoItem";
 
 import { connect } from "react-redux";
-import { addTodo } from "./actions/todoAction";
+import { addTodo, deleteTodo } from "./actions/todoAction";
 
 class App extends Component {
   constructor(props) {
@@ -33,14 +33,7 @@ class App extends Component {
 
   onDeleteItem = index => {
     this.notify(0, "deleted item !");
-    let items = [...this.state.items];
-    var res = items.filter((val, i) => {
-      return i !== index;
-    });
-
-    this.setState({
-      items: res
-    });
+    this.props.deleteTodo(this.props.todos, index)
   };
 
   onInputItem = item => {
@@ -73,5 +66,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addTodo }
+  { addTodo, deleteTodo }
 )(App);

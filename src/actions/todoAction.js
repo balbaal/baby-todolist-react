@@ -20,3 +20,15 @@ export const addTodo = (oldData, newData) => dispatch => {
     payload: data
   });
 };
+
+export const deleteTodo = (oldData, index) => dispatch => {
+    // logic for delete
+    let data = oldData.filter((todo, i) => {
+      return i !== index
+    })
+    
+    dispatch({
+        type: DELETE_TODO,
+        payload: data
+    })
+}
