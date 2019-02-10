@@ -1,4 +1,7 @@
 import React from "react";
+import { notify } from "../notify";
+import { addTodo } from "../actions/todoAction";
+import { connect } from "react-redux";
 
 class TodoForm extends React.Component {
   constructor(props) {
@@ -9,6 +12,22 @@ class TodoForm extends React.Component {
     };
   }
 
+  onInputItem = (event) => {
+    event.preventDefault()
+    let item = this.state.title;
+
+    if (item.length === 0) {
+      notify(2, "field can't empty");
+    } else {
+      notify(1, "added new item !");
+      this.props.addTodo(this.props.todos, item);
+    }
+
+    this.setState({
+      title: ""
+    });
+  };
+
   onchange = event => {
     this.setState({
       title: event.target.value
@@ -18,15 +37,7 @@ class TodoForm extends React.Component {
   render() {
     return (
       <div>
-        <form
-          onSubmit={e => {
-            e.preventDefault();
-            this.props.onInputItem(this.state.title);
-            this.setState({
-              title: ""
-            });
-          }}
-        >
+        <form onSubmit={this.onInputItem}>
           <input
             type="text"
             onChange={this.onchange}
@@ -41,4 +52,11 @@ class TodoForm extends React.Component {
   }
 }
 
-export default TodoForm;
+const mapStateToProps = state => ({
+  todos: state.todos.todos
+});
+
+export default connect(
+  mapStateToProps,
+  { addTodo }
+)(TodoForm);

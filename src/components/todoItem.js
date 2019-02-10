@@ -1,23 +1,29 @@
 import React from "react";
 import FlipMove from "react-flip-move";
 
-import { fetchTodos } from "../actions/todoAction";
+import { fetchTodos, deleteTodo } from "../actions/todoAction";
 import { connect } from "react-redux";
 
-class TodoItem extends React.Component {
+import { notify } from "../notify";
 
-  componentWillMount(){
-      this.props.fetchTodos()
+class TodoItem extends React.Component {
+  componentWillMount() {
+    this.props.fetchTodos();
   }
+
+  onDeleteItem = index => {
+    notify(0, "deleted item !");
+    this.props.deleteTodo(this.props.todos, index);
+  };
 
   render() {
     let lists =
-      this.props.items.length === 0 ? (
+      this.props.todos.length === 0 ? (
         <h3 style={{ color: "#333" }}>no item list . . .</h3>
       ) : (
-        this.props.items.map((item, index) => {
+        this.props.todos.map((item, index) => {
           return (
-            <li onClick={() => this.props.onDeleteItem(index)} key={index}>
+            <li onClick={() => this.onDeleteItem(index)} key={index}>
               {item}
             </li>
           );
@@ -37,10 +43,10 @@ class TodoItem extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  items: state.todos.todos
+  todos: state.todos.todos
 });
 
 export default connect(
   mapStateToProps,
-  { fetchTodos }
+  { fetchTodos, deleteTodo }
 )(TodoItem);
